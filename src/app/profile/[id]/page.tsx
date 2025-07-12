@@ -6,13 +6,14 @@ export const metadata: Metadata = {
   description: "Detailed view of user profile",
 };
 
-export default function UserProfilePage({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
+interface PageProps {
+  params: {
+    id: string;
+  };
   searchParams?: Record<string, string | string[] | undefined>;
-}) {
+}
+
+export default function UserProfilePage({ params, searchParams }: PageProps) {
   const { id } = params;
 
   return (
@@ -20,8 +21,7 @@ export default function UserProfilePage({
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-4">👤 User Profile</h2>
         <p className="text-lg text-gray-700">
-          Viewing profile for user ID:{" "}
-          <span className="font-mono text-blue-600">{id}</span>
+          Viewing profile for user ID: <span className="font-mono text-blue-600">{id}</span>
         </p>
 
         <div className="mt-6 space-y-4">
@@ -31,8 +31,8 @@ export default function UserProfilePage({
         </div>
 
         <div className="mt-8 pt-4 border-t border-gray-200">
-          <Link 
-            href="/profile" 
+          <Link
+            href="/profile"
             className="text-blue-600 hover:text-blue-800 text-sm font-medium"
           >
             Back to Profile Home
