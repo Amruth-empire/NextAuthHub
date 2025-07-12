@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast, Bounce, ToastContainer } from "react-toastify";
 
-const loginPage = () => {
+const LoginPage = () => {
   const router = useRouter();
 
   const [user, setUser] = useState({
@@ -65,9 +65,20 @@ const loginPage = () => {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-blue-200">
-        <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-6 text-center  text-black">
-            Login{" "}
+        <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md relative">
+          {/* Back to Home Button - Top Left */}
+          <Link 
+            href="/" 
+            className="absolute top-4 left-4 text-gray-500 hover:text-gray-700"
+            aria-label="Back to home"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          </Link>
+          
+          <h2 className="text-2xl font-bold mb-6 text-center text-black">
+            Login
           </h2>
           <form className="space-y-4" onSubmit={onLogin}>
             <div>
@@ -80,7 +91,7 @@ const loginPage = () => {
                 value={user.email}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
                 placeholder="Enter email"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400  text-black"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
               />
             </div>
             <div>
@@ -93,14 +104,15 @@ const loginPage = () => {
                 value={user.password}
                 onChange={(e) => setUser({ ...user, password: e.target.value })}
                 placeholder="Enter password"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400  text-black"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl"
+              disabled={buttonDisabled}
+              className={`w-full ${buttonDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'} text-white font-semibold py-2 px-4 rounded-xl`}
             >
-              {buttonDisabled ? "No Login " : "Login"}
+              {buttonDisabled ? "Fill details to login" : "Login"}
             </button>
           </form>
           <ToastContainer />
@@ -116,4 +128,4 @@ const loginPage = () => {
   );
 };
 
-export default loginPage;
+export default LoginPage;

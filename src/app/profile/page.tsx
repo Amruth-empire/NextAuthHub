@@ -38,7 +38,7 @@ const ProfilePage = () => {
       const res = await axios.get("/api/users/user");
       setData(res.data.user._id);
     } catch (error: any) {
-      toast.error("❌ Failed to get user: " + error.message, {
+      toast.error("❌ Failed to get user", {
         position: "top-center",
       });
     } finally {

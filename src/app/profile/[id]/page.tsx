@@ -1,17 +1,19 @@
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "User Profile",
   description: "Detailed view of user profile",
 };
 
-interface UserProfileProps {
+interface PageProps {
   params: {
     id: string;
   };
+  searchParams?: Record<string, string | string[] | undefined>;
 }
 
-export default function UserProfilePage({ params }: UserProfileProps) {
+export default function UserProfilePage({ params }: PageProps) {
   const { id } = params;
 
   return (
@@ -22,10 +24,21 @@ export default function UserProfilePage({ params }: UserProfileProps) {
           Viewing profile for user ID:{" "}
           <span className="font-mono text-blue-600">{id}</span>
         </p>
-        <p className="text-sm text-gray-500 mt-4">
-          (In a real app, this page would fetch and show user details from the
-          database using this ID.)
-        </p>
+        
+        <div className="mt-6 space-y-4">
+          <p className="text-sm text-gray-500">
+            This page demonstrates proper type handling for dynamic routes.
+          </p>
+        </div>
+
+        <div className="mt-8 pt-4 border-t border-gray-200">
+          <Link 
+            href="/profile" 
+            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+          >
+          Back to Profile Home
+          </Link>
+        </div>
       </div>
     </div>
   );

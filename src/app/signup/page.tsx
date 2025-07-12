@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast, Bounce,ToastContainer  } from "react-toastify";
+import { toast, Bounce, ToastContainer } from "react-toastify";
 
 const signUppage = () => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const signUppage = () => {
     username: "",
   });
 
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
     if (
@@ -46,9 +46,8 @@ const signUppage = () => {
       });
 
       setTimeout(() => {
-      router.push("/login");
-    }, 1000);
-
+        router.push("/login");
+      }, 1000);
     } catch (error: any) {
       toast.error("❌ Signup failed!", {
         position: "top-center",
@@ -67,7 +66,7 @@ const signUppage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-blue-200">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center  text-black">
+        <h2 className="text-2xl font-bold mb-6 text-center text-black">
           Sign Up
         </h2>
         <form className="space-y-4" onSubmit={onSignup}>
@@ -81,7 +80,7 @@ const signUppage = () => {
               value={user.username}
               onChange={(e) => setUser({ ...user, username: e.target.value })}
               placeholder="Enter username"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-black "
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
             />
           </div>
           <div>
@@ -94,7 +93,7 @@ const signUppage = () => {
               value={user.email}
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               placeholder="Enter email"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400  text-black"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
             />
           </div>
           <div>
@@ -107,17 +106,22 @@ const signUppage = () => {
               value={user.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
               placeholder="Enter password"
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400  text-black"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl"
+            disabled={buttonDisabled}
+            className={`w-full text-white font-semibold py-2 px-4 rounded-xl ${
+              buttonDisabled
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+            }`}
           >
-            {buttonDisabled ? "No SignUp " : "SigUp"}
+            {buttonDisabled ? "Fill details to signup" : "Sign Up"}
           </button>
         </form>
-      <ToastContainer />
+        <ToastContainer />
         <p className="mt-4 text-sm text-center text-gray-600">
           Already have an account?{" "}
           <Link href="/login" className="text-blue-500 hover:underline">
