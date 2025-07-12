@@ -1,4 +1,3 @@
-import React from "react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,13 +5,7 @@ export const metadata: Metadata = {
   description: "Detailed view of user profile",
 };
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
-
-const UserProfilePage = ({ params }: PageProps) => {
+const UserProfilePage = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
 
   return (
