@@ -55,7 +55,7 @@ const ProfilePage = () => {
   // }, [data]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 text-black">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 to-blue-200 text-black">
       <div className="bg-white p-6 rounded-2xl shadow-md text-center">
         <h1 className="text-2xl font-bold mb-4">Welcome to your Profile!</h1>
         <h2 className="text-xl font-semibold text-gray-800">

@@ -1,31 +1,33 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-    const path = request.nextUrl.pathname
+  const path = request.nextUrl.pathname;
+  const token = request.cookies.get("token")?.value;
 
-    const isPublicPath = path === '/login' || path === '/signup' || path === '/verifyemail' 
-    const token = request.cookies.get("token")?.value || ''
+  const publicPaths = ['/', '/login', '/signup', '/verifyemail'];
+  const isPublic = publicPaths.includes(path);
 
-    if (isPublicPath && token) {
-        return NextResponse.redirect(new URL('/', request.url));
-    }
+  // 1. If user is logged in and tries to visit login or signup → redirect to /
+  if (token && (path === '/login' || path === '/signup')) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
 
-    if (!isPublicPath && !token) {
-        return NextResponse.redirect(new URL('/login', request.url));
-    }
+  // 2. If user is NOT logged in and tries to visit protected route → redirect to /login
+  if (!token && !isPublic) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
 
-    return NextResponse.next();
-
+  // 3. Allow access to the route
+  return NextResponse.next();
 }
-
 
 export const config = {
-    matcher: [
-        '/',
-        '/profile',
-        '/login',
-        '/signup',
-        '/verifyemail'
-    ]
-}
+  matcher: [
+    '/',                  // public landing page
+    '/login',
+    '/signup',
+    '/verifyemail',
+    '/profile/:path*'     // protect profile and its subroutes
+  ]
+};
