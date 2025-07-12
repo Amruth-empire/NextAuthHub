@@ -5,8 +5,13 @@ export const metadata: Metadata = {
   description: "Detailed view of user profile",
 };
 
-// ✅ Correct way to type params in dynamic routes
-export default function UserProfilePage({ params }: { params: { id: string } }) {
+interface UserProfileProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function UserProfilePage({ params }: UserProfileProps) {
   const { id } = params;
 
   return (
