@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
         const { token } = reqBody
-        console.log(token);
+        console.log("Token is",token);
 
         const user = await usermodel.findOne({
             verifyToken: token,
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
         if (!user) {
             return NextResponse.json({ error: "Invalid token" }, { status: 400 });
         }
-        console.log(user);
+        console.log("user is",user);
 
         user.isVerified = true;
         user.verifyToken = undefined;
