@@ -6,16 +6,14 @@ export const metadata: Metadata = {
   description: "Detailed view of user profile",
 };
 
-interface PageProps {
-  params: {
-    id: string;
-  };
+export default async function UserProfilePage({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
   searchParams?: Record<string, string | string[] | undefined>;
-}
-
-export default function UserProfilePage({ params }: PageProps) {
-  const { id } = params;
-
+}) {
+  const { id } = await params; 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-blue-200 flex items-center justify-center">
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full text-center">
@@ -24,7 +22,7 @@ export default function UserProfilePage({ params }: PageProps) {
           Viewing profile for user ID:{" "}
           <span className="font-mono text-blue-600">{id}</span>
         </p>
-        
+
         <div className="mt-6 space-y-4">
           <p className="text-sm text-gray-500">
             This page demonstrates proper type handling for dynamic routes.
@@ -36,7 +34,7 @@ export default function UserProfilePage({ params }: PageProps) {
             href="/profile" 
             className="text-blue-600 hover:text-blue-800 text-sm font-medium"
           >
-          Back to Profile Home
+            Back to Profile Home
           </Link>
         </div>
       </div>
