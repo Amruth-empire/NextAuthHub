@@ -1,28 +1,26 @@
 "use client";
-
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const VerifyEmailPage = () => {
-  const [token, setToken] = useState<string>("");
-  const [verified, setVerified] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [token, setToken] = useState("");
+  const [verified, setVerified] = useState(false);
+  const [error, setError] = useState(false);
 
-  const verifyUserEmail = async (): Promise<void> => {
+  const verifyUserEmail = async () => {
     try {
       await axios.post("/api/users/verifyemail", { token });
       setVerified(true);
-    } catch (err: any) {
+    } catch (error: any) {
       setError(true);
-      console.error(err?.response?.data || err.message);
+      console.log(error?.response?.data || error.message);
     }
   };
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const extractedToken = urlParams.get("token") || urlParams.get("verifyToken") || "";
-    setToken(extractedToken);
+    const urlToken = window.location.search.split("=")[1];
+    setToken(urlToken || "");
   }, []);
 
   useEffect(() => {
@@ -35,9 +33,7 @@ const VerifyEmailPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md text-center">
         <h2 className="text-black font-bold text-2xl mb-4">Verify Email</h2>
-        <p className="text-sm text-gray-500 break-all mb-4">
-          {token ? token : "No token found"}
-        </p>
+        <p className="text-sm text-gray-500 break-all mb-4">{token ? token : "No token found"}</p>
 
         {verified ? (
           <div>
