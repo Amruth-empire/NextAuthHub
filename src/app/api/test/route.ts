@@ -1,5 +1,5 @@
 // app/api/test/route.ts
-import connectDB from "@/config/dbConfig";
+import connectDB from "../../../config/dbConfig";
 import { NextResponse } from "next/server";
 
 connectDB();

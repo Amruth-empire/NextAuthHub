@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import usermodel from "@/models/userModel";
+import usermodel from "../models/usermodel";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
@@ -33,9 +33,10 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
             host: "sandbox.smtp.mailtrap.io",
             port: 2525,
             auth: {
-                user: "2aa2a2866335ef",
-                pass: "f3651b20668758"
+                user: process.env.MAILTRAP_USER!,
+                pass: process.env.MAILTRAP_PASS!
             }
+
         });
 
         const link =

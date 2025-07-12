@@ -1,7 +1,7 @@
-import { getDataFromToken } from "@/helpers/gettoken";
+import { getDataFromToken } from "../../../../helpers/gettoken";
 import { NextRequest, NextResponse } from "next/server";
-import usermodel from "@/models/userModel";
-import connectDB from "@/config/dbConfig";
+import usermodel from "../../../../models/usermodel";
+import connectDB from "../../../../config/dbConfig";
 
 connectDB();
 

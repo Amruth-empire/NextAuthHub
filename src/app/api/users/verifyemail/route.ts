@@ -1,6 +1,6 @@
-import connectDB from "@/config/dbConfig";
+import connectDB from "../../../../config/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
-import usermodel from "@/models/userModel";
+import usermodel from "../../../../models/usermodel";
 import bcrypt from "bcryptjs";
 
 

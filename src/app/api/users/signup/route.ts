@@ -1,8 +1,8 @@
-import connectDB from "@/config/dbConfig";
-import usermodel from "@/models/userModel.js";
+import connectDB from "../../../../config/dbConfig";
+import usermodel from "../../../../models/usermodel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { sendEmail } from "@/helpers/mailer";
+import { sendEmail } from "../../../../helpers/mailer";
 
 connectDB()
 
