@@ -5,7 +5,8 @@ export const metadata: Metadata = {
   description: "Detailed view of user profile",
 };
 
-const UserProfilePage = async ({ params }: { params: { id: string } }) => {
+// ✅ Correct way to type params in dynamic routes
+export default function UserProfilePage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   return (
@@ -23,6 +24,4 @@ const UserProfilePage = async ({ params }: { params: { id: string } }) => {
       </div>
     </div>
   );
-};
-
-export default UserProfilePage;
+}
