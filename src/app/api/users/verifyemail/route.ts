@@ -1,6 +1,7 @@
 import connectDB from "@/config/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
 import usermodel from "@/models/userModel";
+import bcrypt from "bcryptjs";
 
 
 connectDB()
@@ -9,24 +10,32 @@ export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
         const { token } = reqBody
-        console.log("Token is",token);
 
-        const user = await usermodel.findOne({
-            verifyToken: token,
+        const users = await usermodel.find({
             verifyTokenExpiry: { $gt: Date.now() }
-        })
+        });
 
-        if (!user) {
+        let matchedUser = null;
+        for (const u of users) {
+            const isMatch = await bcrypt.compare(token, u.verifyToken);
+            if (isMatch) {
+                matchedUser = u;
+                break;
+            }
+        }
+
+        if (!matchedUser) {
             return NextResponse.json({ error: "Invalid token" }, { status: 400 });
         }
-        console.log("user is",user);
 
-        user.isVerified = true;
-        user.verifyToken = undefined;
-        user.verifyTokenExpiry = undefined;
-        await user.save();
+        matchedUser.isVerified = true;
+        matchedUser.verifyToken = undefined;
+        matchedUser.verifyTokenExpiry = undefined;
 
-        return NextResponse.json({ message: "Email varified successfully", success: true })
+        await matchedUser.save();
+
+        return NextResponse.json({ message: "Email verified successfully", success: true });
+
 
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 })
