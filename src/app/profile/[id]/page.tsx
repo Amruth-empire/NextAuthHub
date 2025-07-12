@@ -6,15 +6,8 @@ export const metadata: Metadata = {
   description: "Detailed view of user profile",
 };
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-  searchParams?: Record<string, string | string[] | undefined>;
-}
-
-export default function UserProfilePage({ params, searchParams }: PageProps) {
-  const { id } = params;
+export default function UserProfilePage(props: any) {
+  const { id } = props.params;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-blue-200 flex items-center justify-center">
