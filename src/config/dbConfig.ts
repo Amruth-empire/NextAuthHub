@@ -13,7 +13,7 @@ export const connectDB = async () => {
 
         connection.on('error', (err) => {
             console.log("MONGODB Connection error" + err);
-            process.exit();
+            process.exit(1);
         })
     }
     catch (error: any) {
