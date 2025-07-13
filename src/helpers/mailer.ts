@@ -41,8 +41,8 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
 
         const link =
             emailType === "VERIFY"
-                ? `${process.env.domain}/verifyemail?token=${rawToken}`
-                : `${process.env.domain}/resetpassword?token=${rawToken}`;
+                ? `${process.env.DOMAIN}/verifyemail?token=${rawToken}`
+                : `${process.env.DOMAIN}/resetpassword?token=${rawToken}`;
 
 
         const mailOptions = {
